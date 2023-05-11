@@ -22,11 +22,15 @@ int main() {
 		}
 		if (choice == 2) {
 			int tmp, choicePull;
-			printf("Откуда удалить элемент?\n1 - голова; 2 - хвост;\n"); scanf_s("%d", &choicePull);
+			printf("Откуда удалить элемент?\n1 - голова; 2 - хвост; 3 - позиция\n"); scanf_s("%d", &choicePull);
 			if (choicePull == 1)
 				tmp = pullToHead(list);
 			if (choicePull == 2)
 				tmp = pullToTail(list);
+			if (choicePull == 3) {
+				int pos; printf("Введите позицию откуда удалить элемент\n"); scanf_s("%d", &pos);
+				tmp = pullToPosition(list, pos);
+			}
 			printf("Удаление %d\n", tmp);
 		}
 		if (choice == 3) {

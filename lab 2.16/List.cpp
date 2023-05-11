@@ -26,14 +26,18 @@ void pushToTail(List& l, int data) {
 
 void pushToPosition(List& l, int data, int pos) {
 	if (pos <= 0) {
-		printf("позиция должна быть > 0");
+		printf("позиция должна быть > 0\n");
 		return;
 	}
-	if (pos == 1) {
+	if (pos-1 > l.size) {
+		printf("Ошибка: позиция выходит за границы списка!\n");
+		return;
+	}
+	if (pos-1 == 0) {
 		pushToHead(l, data);
 		return;
 	}
-	if (pos == l.size + 1) {
+	if (pos-1 == l.size) {
 		pushToTail(l, data);
 		return;
 	}
@@ -50,6 +54,7 @@ void pushToPosition(List& l, int data, int pos) {
 		e->data = data;
 		e->next = current->next;
 		current->next = e;
+		l.size++;
 	}
 }
 
@@ -59,6 +64,7 @@ int pullToHead(List& l) {
 	Element* e = l.head;
 	l.head = l.head->next;
 	free(e);
+	l.size--;
 	return d;
 }
 
@@ -76,7 +82,44 @@ int pullToTail(List& l) {
 	int d = cur->next->data;
 	free(cur->next);
 	cur->next = NULL;
+	l.size--;
 	return d;
+}
+
+int pullToPosition(List& l, int pos) {
+	int tmp;
+	if (l.head == NULL) return 0;
+	if (pos <= 0) {
+		printf("позиция должна быть > 0\n");
+		return 0;
+	}
+	if (pos-1 >= l.size) {
+		printf("Ошибка: позиция выходит за границы списка!\n");
+		return 0;
+	}
+	//if (pos == l.size + 1) {
+	//	pullToTail(l);
+	//}
+	if (pos-1 == 0) {
+		tmp = pullToHead(l);
+		return tmp;
+	}
+	else {
+		Element* current = l.head;
+		for (int i = 0; i < pos-2; i++) {
+			if (current == NULL) {
+				printf("Ошибка: позиция выходит за границы списка!\n");
+				return 0;
+			}
+			current = current->next;
+		}
+		Element* next = current->next->next;
+		int d = current->next->data;
+		free(current->next);
+		current->next = next;
+		l.size--;
+		return d;
+	}
 }
 
 void clear(List& l) {
