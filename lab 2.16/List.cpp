@@ -132,9 +132,40 @@ void clear(List& l) {
 	}
 }
 
-void sortedList(List& l) {
-	Element* e = l.head;
-
+void pushSortedList(List& sortedList, int data) {
+	if (sortedList.head == NULL) {
+		Element* e = (Element*)malloc(sizeof(Element));
+		e->data = data;
+		e->next = sortedList.head;
+		sortedList.head = e;
+	}
+	else {
+		Element* cur = sortedList.head;
+		for (cur; cur != NULL; cur = cur->next) {
+			if (cur->data > data) {
+				Element* e = (Element*)malloc(sizeof(Element));
+				e->data = data;
+				e->next = sortedList.head;
+				sortedList.head = e;
+				break;
+			}
+			if (cur->data < data and cur->next == NULL) {
+				Element* e = (Element*)malloc(sizeof(Element));
+				e->data = data;
+				e->next = NULL;
+				cur->next = e;
+				break;
+			}
+			if (cur->data < data and cur->next->data > data) {
+				Element* e = (Element*)malloc(sizeof(Element));
+				e->data = data;
+				e->next = cur->next;
+				cur->next = e;
+				break;
+			}
+		}
+	}
+	sortedList.size++;
 }
 
 void printList(List& l) {

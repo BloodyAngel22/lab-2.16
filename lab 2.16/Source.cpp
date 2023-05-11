@@ -11,39 +11,48 @@ int main() {
 			int tmp; printf("Введите элемент: "); scanf_s("%d", &tmp);
 			int choicePush;
 			printf("Куда добавить элемент?\n1 - голова; 2 - хвост; 3 - позиция\n"); scanf_s("%d", &choicePush);
-			if (choicePush == 1)
+			if (choicePush == 1) {
 				pushToHead(list, tmp);
+			}
 			if (choicePush == 2)
 				pushToTail(list, tmp);
 			if (choicePush == 3) {
 				int pos; printf("Введите позицию куда вставить элемент\n"); scanf_s("%d", &pos);
 				pushToPosition(list, tmp, pos);
 			}
+			pushSortedList(sortedList, tmp);
 		}
 		if (choice == 2) {
-			int tmp, choicePull;
+			int tmp1, tmp2, choicePull;
 			printf("Откуда удалить элемент?\n1 - голова; 2 - хвост; 3 - позиция\n"); scanf_s("%d", &choicePull);
-			if (choicePull == 1)
-				tmp = pullToHead(list);
-			if (choicePull == 2)
-				tmp = pullToTail(list);
+			if (choicePull == 1) {
+				tmp1 = pullToHead(list);
+				tmp2 = pullToHead(sortedList);
+			}
+			if (choicePull == 2) {
+				tmp1 = pullToTail(list);
+				tmp2 = pullToTail(sortedList);
+			}
 			if (choicePull == 3) {
 				int pos; printf("Введите позицию откуда удалить элемент\n"); scanf_s("%d", &pos);
-				tmp = pullToPosition(list, pos);
+				tmp1 = pullToPosition(list, pos);
+				tmp2 = pullToPosition(sortedList, pos);
 			}
-			printf("Удаление %d\n", tmp);
+			printf("Удаление %d, %d\n", tmp1, tmp2);
 		}
 		if (choice == 3) {
 			clear(list);
+			clear(sortedList);
 		}
 		if (choice == 4) {
 			clear(list);
+			clear(sortedList);
 			exit(1);
 		}
 
 		printf("Неотсортированный list\n");
 		printList(list);
-		/*printf("Отсортированный list\n");
-		printList(sortedList);*/
+		printf("Отсортированный list\n");
+		printList(sortedList);
 	}
 }
