@@ -97,9 +97,6 @@ int pullToPosition(List& l, int pos) {
 		printf("Ошибка: позиция выходит за границы списка!\n");
 		return 0;
 	}
-	//if (pos == l.size + 1) {
-	//	pullToTail(l);
-	//}
 	if (pos-1 == 0) {
 		tmp = pullToHead(l);
 		return tmp;
@@ -124,11 +121,10 @@ int pullToPosition(List& l, int pos) {
 
 void clear(List& l) {
 	if (l.head == NULL) return;
-	for (l.head; l.head != NULL; l.head = l.head->next) {
+	for (;l.head != NULL;) {
 		Element* e = l.head;
 		l.head = l.head->next;
 		free(e);
-		if (l.head == NULL) return;
 	}
 }
 
